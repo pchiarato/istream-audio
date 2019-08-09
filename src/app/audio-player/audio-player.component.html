@@ -1,0 +1,50 @@
+
+
+<!-- <button class="player-btn" >Play</button> -->
+<div class="container" (mouseup)="dragging = false">
+    <div class="audio-container">
+
+
+      <div class="audio-control">
+          <!-- <div [ngStyle]="{'width':statusBar + '%','transition': 'width .4s'}" class="audio-control-border-top"> -->
+          <!-- <div class="audio-control-border-top"> -->
+            <!-- <input type="range" [(ngModel)]="currentTime" [max]="duration" (change)="updateTrack($event)"> -->
+          <!-- </div> -->
+          <audio id="audio-player" (timeupdate)="timeUpdate()" #audio_p>
+              <source  [src]="audioFile">
+          </audio>
+        <div class="audio-control-thumbnail">
+          <img src="https://img.discogs.com/4scJ_l50hAM-98SFhoQGSWMPS2o=/fit-in/598x600/filters:strip_icc():format(jpeg):mode_rgb():quality(90)/discogs-images/R-3124587-1316978803.jpeg.jpg" alt="">
+        </div>
+        <div class="audio-control-btn-container">
+            <a role="button" class="audio-control-btn" *ngIf="!playing" (click)="audio_p.play(); playing = true"><i class="fa fa-play-circle"></i></a>
+            <a role="button" class="audio-control-btn" *ngIf="playing" (click)="audio_p.pause(); playing = false"><i class="fa fa-pause-circle"></i></a>
+        </div>
+        <div class="audio-control-info">
+          <p>
+            {{currentTimeMin}}/{{durationMin}}
+          </p>
+
+        </div>
+
+      </div>
+      <!-- <div #sliderContainer class="audio-control-track-status"> -->
+        <div class="track-slider-container">
+          <!-- <div class="track">
+            <div #progress class="progress"></div>
+            <div (mousedown)="dragging = true" #trackThumb class="track-thumb">
+              <div #thumbIndicator class="thumb-indicator"></div>
+            </div>
+          </div> -->
+          <input #slider class="slider" (mousedown)="dragging = true" type="range" [(ngModel)]="currentTime" [max]="duration" (change)="updateTrack($event)">
+          <div></div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+
+  <!-- <button class="player-btn" *ngIf="playing" (click)="audio_p.pause(); playing = false">Pause</button> -->
+  <router-outlet></router-outlet>
